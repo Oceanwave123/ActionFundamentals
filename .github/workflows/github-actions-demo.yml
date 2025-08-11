@@ -23,18 +23,22 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Output event name
         run: echo "Event name: ${{ github.event_name }}"
+
       - name: Output branch name
         run: echo "Branch name: ${{ github.ref_name }}"
+
       - name: List files in repository
         run: ls -la
 
   Deploy:
-    if: ${{ github.event_name == 'workflow_dispatch' }}  # only when Run workflow is used
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     needs: Build
-    environment: ${{ inputs.environment }}               # triggers env gates/approvals
+    environment: ${{ inputs.environment }}
     steps:
       - name: Show selected environment
         run: echo "Deploying to environment: ${{ inputs.environment }}"
+
